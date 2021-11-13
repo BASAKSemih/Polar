@@ -50,7 +50,7 @@ class NationalityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/modifier-une-nationnalite/{idNationality}", name="create_nationality")
+     * @Route("/admin/modifier-une-nationnalite/{idNationality}", name="edit_nationality")
      */
     public function editNationality(Request $request, $idNationality): Response
     {
