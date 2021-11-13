@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un contact{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Modifier un contact</h1>
+        {{ form_start(form) }}
+        <label for="">Nom du contact</label>
+        {{ form_row(form.firstName) }}
+        <label for="">Prénom du contact</label>
+        {{ form_row(form.lastName) }}
+        <label for="">Date de naissance</label>
+        {{ form_row(form.birthDate) }}
+        <label for="">Nationnalité</label>
+        {{ form_row(form.nationality) }}
+        {{ form_widget(form.submit, { 'label': "Modifier le contact" }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

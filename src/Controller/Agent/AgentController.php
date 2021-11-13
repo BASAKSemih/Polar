@@ -47,6 +47,10 @@ class AgentController extends AbstractController
     public function editAgent(Request $request, $idAgent): Response
     {
         $agent = $this->agentRepository->findOneById($idAgent);
+        if (!$agent){
+            $this->addFlash('warning', "Cette cible n'existe pas");
+            return $this->redirectToRoute('homePage');
+        }
         $form = $this->createForm(AgentType::class, $agent)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
