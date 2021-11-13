@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une nationalité{% endblock %}
+{% block title %}Modifier une nationnalité{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
         {{ form_start(form) }}
         <label for="">Nom de la nationnalité</label>
         {{ form_row(form.name) }}
-        {{ form_widget(form.submit, { 'label': 'Crée la nationnalité' }) }}
+        {{ form_widget(form.submit, { 'label': 'Modifier la nationnalité' }) }}
         {{ form_end(form) }}
     </div>
 

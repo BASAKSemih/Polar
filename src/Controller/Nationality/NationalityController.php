@@ -48,4 +48,11 @@ class NationalityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/modifier-une-nationnalite/{idNationality}", name="create_nationality")
+     */
+    public function editNationality(Request $request, $idNationality): Response
+    {
+    }
 }
