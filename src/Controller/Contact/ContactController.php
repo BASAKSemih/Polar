@@ -30,7 +30,7 @@ class ContactController extends AbstractController
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($contact);
             $this->entityManager->flush();
             $this->addFlash('success', "Le contact à bien été crée");
@@ -47,12 +47,12 @@ class ContactController extends AbstractController
     public function editContact(Request $request, $idContact): Response
     {
         $contact = $this->contactRepository->findOneById($idContact);
-        if (!$contact){
+        if (!$contact) {
             $this->addFlash('warning', "Ce contact n'existe pas");
             return $this->redirectToRoute('homePage');
         }
         $form = $this->createForm(ContactType::class, $contact)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', "Le contact à bien été modifier");
             return $this->redirectToRoute('homePage');
@@ -61,7 +61,4 @@ class ContactController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-
-
 }

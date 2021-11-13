@@ -47,7 +47,7 @@ class AgentController extends AbstractController
     public function editAgent(Request $request, $idAgent): Response
     {
         $agent = $this->agentRepository->findOneById($idAgent);
-        if (!$agent){
+        if (!$agent) {
             $this->addFlash('warning', "Cette cible n'existe pas");
             return $this->redirectToRoute('homePage');
         }
