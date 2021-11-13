@@ -51,7 +51,10 @@ class AgentType extends AbstractType
                 'multiple' => true,
                 'choice_label' => function (Nationality $nationality) {
                     return $nationality->getName();
-                }
+                },
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('speciality', EntityType::class, [
                 'label' => false,
@@ -59,7 +62,10 @@ class AgentType extends AbstractType
                 'multiple' => true,
                 'choice_label' => function (Speciality $speciality) {
                     return $speciality->getName();
-                }
+                },
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => false,
