@@ -29,7 +29,7 @@ class TargetController extends AbstractController
     {
         $target = new Target();
         $form = $this->createForm(TargetType::class, $target)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($target);
             $this->entityManager->flush();
             $this->addFlash('success', "La cible à bien été crée");
@@ -46,12 +46,12 @@ class TargetController extends AbstractController
     public function editTarget(Request $request, $idTarget): Response
     {
         $target = $this->targetRepository->findOneById($idTarget);
-        if (!$target){
+        if (!$target) {
             $this->addFlash('warning', "Cette cible n'existe pas");
             return $this->redirectToRoute('homePage');
         }
         $form = $this->createForm(TargetType::class, $target)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'La cible a bien été modifier');
             return $this->redirectToRoute('homePage');
@@ -60,5 +60,4 @@ class TargetController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 }

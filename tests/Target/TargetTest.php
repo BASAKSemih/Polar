@@ -73,6 +73,5 @@ class TargetTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-
     }
 }

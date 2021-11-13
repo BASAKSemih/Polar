@@ -64,7 +64,7 @@ class Target
     {
         $this->firstName = $firstName;
     }
-    
+
 
     public function getLastName(): ?string
     {
