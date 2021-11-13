@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une spécialité{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Inscription</h1>
+        {{ form_start(form) }}
+        <label for="">Nom de la specialité</label>
+        {{ form_row(form.name) }}
+        <label for="">Description de la specialité</label>
+        {{ form_row(form.description) }}
+        {{ form_widget(form.submit, { 'label': 'Crée sont compte' }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
