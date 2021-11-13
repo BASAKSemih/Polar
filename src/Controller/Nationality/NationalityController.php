@@ -40,7 +40,7 @@ class NationalityController extends AbstractController
             }
             $this->addFlash('warning', 'Cette nationnalité existe déjà');
             $form = $this->createForm(NationalityType::class, $nationality)->handleRequest($request);
-            return $this->render('user/register.html.twig', [
+            return $this->render('agent/nationality/create.html.twig', [
                 'form' => $form->createView()
             ]);
         }
