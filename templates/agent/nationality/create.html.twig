@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une nationalité{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Crée la nationnalité</h1>
+        {{ form_start(form) }}
+        <label for="">Nom de la nationnalité</label>
+        {{ form_row(form.name) }}
+        {{ form_widget(form.submit, { 'label': 'Crée la nationnalité' }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
