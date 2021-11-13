@@ -56,6 +56,27 @@ class SpecialityTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    public function testEditSpecialityError(): void
+    {
+        $client = static::createClient();
+        $router = $client->getContainer()->get("router");
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $specialityRepository = $entityManager->getRepository(Speciality::class);
+        /** @var Speciality $speciality */
+        $speciality = $specialityRepository->findOneByName("Furti");
+        $speciality_id = $speciality->getId();
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            $router->generate("edit_speciality", ['idSpeciality' => $speciality_id])
+        );
+        $form = $crawler->filter("form[name=speciality]")->form([
+            "speciality[name]" => "Arme Explosif",
+            "speciality[description]" => "Manie très bien les armes explosifs"
+        ]);
+        $client->submit($form);
+        self::assertRouteSame('edit_speciality');
+    }
+
     public function testEditSpeciality(): void
     {
         $client = static::createClient();

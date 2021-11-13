@@ -53,6 +53,26 @@ class NationalityTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    public function testEditNationnalityError(): void
+    {
+        $client = static::createClient();
+        $router = $client->getContainer()->get("router");
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $nationalityRepository = $entityManager->getRepository(Nationality::class);
+        /** @var Nationality $nationality */
+        $nationality = $nationalityRepository->findOneByName("Russ");
+        $nationality_id = $nationality->getId();
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            $router->generate("edit_nationality", ['idNationality' => $nationality_id])
+        );
+        $form = $crawler->filter("form[name=nationality]")->form([
+            "nationality[name]" => "Française",
+        ]);
+        $client->submit($form);
+        self::assertRouteSame('edit_nationality');
+    }
+
     public function testEditNationnality(): void
     {
         $client = static::createClient();
