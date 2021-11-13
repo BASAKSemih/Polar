@@ -73,5 +73,4 @@ class NationalityTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-
 }

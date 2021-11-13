@@ -48,4 +48,33 @@ class SpecialityController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/modifier-une-specialite/{idSpeciality}", name="edit_speciality")
+     */
+    public function editSpeciality(Request $request, $idSpeciality): Response
+    {
+        $speciality = $this->specialityRepository->findOneById($idSpeciality);
+        if (!$speciality) {
+            $this->addFlash('warning', "Cette spécialité n'existe pas");
+            return $this->redirectToRoute('homePage');
+        }
+        $form = $this->createForm(SpecialityType::class, $speciality)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search_exist = $this->specialityRepository->findByName($speciality->getName());
+            if (!$search_exist) {
+                $this->entityManager->flush();
+                $this->addFlash('success', 'La spécialité a bien été modifier');
+                return $this->redirectToRoute('homePage');
+            }
+            $this->addFlash('warning', 'Cette spécialité existe déjà');
+            $form = $this->createForm(SpecialityType::class, $speciality)->handleRequest($request);
+            return $this->render('agent/speciality/edit.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+        return $this->render('agent/speciality/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

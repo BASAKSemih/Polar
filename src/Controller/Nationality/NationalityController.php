@@ -55,7 +55,7 @@ class NationalityController extends AbstractController
     public function editNationality(Request $request, $idNationality): Response
     {
         $nationality = $this->nationalityRepository->findOneById($idNationality);
-        if (!$nationality){
+        if (!$nationality) {
             $this->addFlash('warning', "Cette nationnalité n'existe pas");
             return $this->redirectToRoute('homePage');
         }
@@ -64,7 +64,7 @@ class NationalityController extends AbstractController
             $search_exist = $this->nationalityRepository->findByName($nationality->getName());
             if (!$search_exist) {
                 $this->entityManager->flush();
-                $this->addFlash('success', 'La nationnalité a bien été ajouter');
+                $this->addFlash('success', 'La nationnalité a bien été modifier');
                 return $this->redirectToRoute('homePage');
             }
             $this->addFlash('warning', 'Cette nationnalité existe déjà');
