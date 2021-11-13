@@ -9,7 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class NationalityTest extends WebTestCase
 {
-    public function testCreateNationnality(): void
+    public function testCreateNationality(): void
     {
         $client = static::createClient();
         /** @var RouterInterface $router */

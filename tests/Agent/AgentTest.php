@@ -9,7 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 class AgentTest extends WebTestCase
 {
     /**
-     * @depends testCreateNationnality, testCreateSpeciality
+     * @depends testCreateNationality, testCreateSpeciality
      */
     public function testCreateAgent(): void
     {
@@ -33,7 +33,7 @@ class AgentTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
-    public function testCreateNationnality(): void
+    public function testCreateNationality(): void
     {
         $client = static::createClient();
         /** @var RouterInterface $router */
@@ -63,5 +63,4 @@ class AgentTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-
 }
