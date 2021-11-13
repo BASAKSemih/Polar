@@ -48,7 +48,7 @@ class AgentController extends AbstractController
     {
         $agent = $this->agentRepository->findOneById($idAgent);
         $form = $this->createForm(AgentType::class, $agent)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', "L'agent à bien été modifier");
             return $this->redirectToRoute('homePage');
