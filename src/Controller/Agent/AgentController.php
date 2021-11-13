@@ -40,4 +40,21 @@ class AgentController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/modifier-un-agent/{idAgent}", name="edit_agent")
+     */
+    public function editAgent(Request $request, $idAgent): Response
+    {
+        $agent = $this->agentRepository->findOneById($idAgent);
+        $form = $this->createForm(AgentType::class, $agent)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->flush();
+            $this->addFlash('success', "L'agent à bien été modifier");
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('agent/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

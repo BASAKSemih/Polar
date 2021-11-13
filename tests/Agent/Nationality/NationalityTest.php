@@ -53,7 +53,7 @@ class NationalityTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
-    public function testEditNationnalityError(): void
+    public function testEditNationalityError(): void
     {
         $client = static::createClient();
         $router = $client->getContainer()->get("router");
@@ -73,7 +73,7 @@ class NationalityTest extends WebTestCase
         self::assertRouteSame('edit_nationality');
     }
 
-    public function testEditNationnality(): void
+    public function testEditNationality(): void
     {
         $client = static::createClient();
         $router = $client->getContainer()->get("router");
