@@ -34,10 +34,16 @@ class Nationality
      */
     private $targets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="nationality")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->agents = new ArrayCollection();
         $this->targets = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,6 +112,33 @@ class Nationality
     {
         if ($this->targets->removeElement($target)) {
             $target->removeNationality($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->addNationality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            $contact->removeNationality($this);
         }
 
         return $this;
