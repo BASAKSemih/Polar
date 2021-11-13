@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crée un agent{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Crée un agent</h1>
+        {{ form_start(form) }}
+        <label for="">Nom de l'agent</label>
+        {{ form_row(form.firstName) }}
+        <label for="">Prénom de l'agent</label>
+        {{ form_row(form.lastName) }}
+        <label for="">Date de naissance</label>
+        {{ form_row(form.birthDate) }}
+        <label for="">Histoire de l'agent</label>
+        {{ form_row(form.biography) }}
+        <label for="">Nationnalité</label>
+        {{ form_row(form.nationality) }}
+        <label for="">Spécialité</label>
+        {{ form_row(form.speciality) }}
+        {{ form_widget(form.submit, { 'label': "Ajouter l'agent" }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
