@@ -4,7 +4,6 @@ namespace App\Tests\Agent\Nationality;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
 class NationalityTest extends WebTestCase
