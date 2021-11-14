@@ -55,11 +55,17 @@ class Agent
      */
     private $biography;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="agent")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->speciality = new ArrayCollection();
         $this->nationality = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +177,33 @@ class Agent
     public function setBiography(string $biography): self
     {
         $this->biography = $biography;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->addAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->missions->removeElement($mission)) {
+            $mission->removeAgent($this);
+        }
 
         return $this;
     }
