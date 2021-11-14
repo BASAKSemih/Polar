@@ -19,26 +19,22 @@ class AgentType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('lastName', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('birthDate', DateType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('biography', TextareaType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('nationality', EntityType::class, [
                 'label' => false,
                 'class' => Nationality::class,
@@ -48,8 +44,7 @@ class AgentType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('speciality', EntityType::class, [
                 'label' => false,
                 'class' => Speciality::class,
@@ -59,14 +54,12 @@ class AgentType extends AbstractType
                 },
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('submit', SubmitType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary mt-2',
-                ]
-            ])
+                ]])
         ;
     }
 
