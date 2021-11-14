@@ -22,7 +22,6 @@ class AgentController extends AbstractController
         $this->agentRepository = $agentRepository;
     }
 
-
     /**
      * @Route("/admin/cree-un-agent", name="create_agent")
      */
