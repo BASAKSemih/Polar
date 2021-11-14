@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Contact;
+namespace App\Controller\Admin\Contact;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
