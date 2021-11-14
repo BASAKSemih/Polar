@@ -9,8 +9,7 @@ use App\Repository\{AgentRepository, ContactRepository,
     NationalityRepository, SpecialityRepository, TargetRepository};
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 
 class MissionController extends AbstractController
