@@ -11,3 +11,7 @@ code:
 
 style:
 	vendor/bin/phpcs
+
+all:
+	make test
+	make code
