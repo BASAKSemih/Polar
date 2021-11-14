@@ -56,9 +56,7 @@ jobs:
           php bin/console doctrine:schema:update --force
           php bin/console doctrine:fixtures:load -n
       - name: Run fonctional test
-        run: |
-        php vendor/bin/phpunit
-        make test
+        run: make test
       - name: Analyze coding style
         run: make style
       - name: Analyse Static Code
