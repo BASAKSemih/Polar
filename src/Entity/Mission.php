@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MissionRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -90,6 +91,7 @@ class Mission
         $this->contact = new ArrayCollection();
         $this->target = new ArrayCollection();
         $this->hidingPlace = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
