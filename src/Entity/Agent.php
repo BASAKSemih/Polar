@@ -55,11 +55,6 @@ class Agent
      */
     private $biography;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="agent")
-     */
-    private $mission;
-
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -176,18 +171,6 @@ class Agent
     public function setBiography(string $biography): self
     {
         $this->biography = $biography;
-
-        return $this;
-    }
-
-    public function getMission(): ?Mission
-    {
-        return $this->mission;
-    }
-
-    public function setMission(?Mission $mission): self
-    {
-        $this->mission = $mission;
 
         return $this;
     }

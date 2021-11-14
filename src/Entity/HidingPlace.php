@@ -37,11 +37,6 @@ class HidingPlace
      */
     private $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="hidingPlace")
-     */
-    private $mission;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -91,18 +86,6 @@ class HidingPlace
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getMission(): ?Mission
-    {
-        return $this->mission;
-    }
-
-    public function setMission(?Mission $mission): self
-    {
-        $this->mission = $mission;
 
         return $this;
     }
