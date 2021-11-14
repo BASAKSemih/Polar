@@ -63,4 +63,26 @@ class MissionController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/modifier-une-mission/{idMission}", name="edit_mission")
+     */
+    public function editMission($idMission, Request $request): Response
+    {
+        $mission = $this->missionRepository->findOneById($idMission);
+        if (!$mission) {
+            $this->addFlash('warning', "Cette mission n'existe pas");
+            return $this->redirectToRoute('homePage');
+        }
+        $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', "La mission à bien été modifier");
+            return $this->redirectToRoute('homePage');
+        }
+
+        return $this->render('admin/mission/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
