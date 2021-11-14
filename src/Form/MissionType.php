@@ -9,6 +9,7 @@ use App\Entity\Mission;
 use App\Entity\Target;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,18 +40,29 @@ class MissionType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('type', TextType::class, [
+            ->add('type', ChoiceType::class, [
+                'required' => true,
                 'label' => false,
+                'choices' => [
+                    'Surveillance' => 'Surveillance',
+                    'Assassinat' => 'Assassinat',
+                    'Infiltration' => 'Infiltration'
+                ],
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
-            ->add('status', TextType::class, [
+                ]])
+            ->add('status', ChoiceType::class, [
+                'required' => true,
                 'label' => false,
+                'choices' => [
+                    'En préparation' => 'En préparation',
+                    'En cours' => 'En cours',
+                    'Terminé' => 'Terminé',
+                    'Echec' => 'Echec',
+                ],
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
+                ]])
             ->add('speciality', TextType::class, [
                 'label' => false,
                 'attr' => [
