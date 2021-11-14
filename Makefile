@@ -1,6 +1,6 @@
 test:
 	composer prepare-test
-	vendor/bin/phpunit
+	php vendor/bin/phpunit --printer 'Sempro\PHPUnitPrettyPrinter\PrettyPrinterForPhpUnit9' tests/
 
 code:
 	vendor/bin/phpcbf
