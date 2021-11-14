@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Speciality;
+namespace App\Controller\Admin\Speciality;
 
 use App\Entity\Speciality;
 use App\Form\SpecialityType;
