@@ -39,6 +39,11 @@ class Target
      */
     private $nationality;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="target")
+     */
+    private $mission;
+
     public function __construct()
     {
         $this->nationality = new ArrayCollection();
@@ -110,6 +115,18 @@ class Target
     public function removeNationality(Nationality $nationality): self
     {
         $this->nationality->removeElement($nationality);
+
+        return $this;
+    }
+
+    public function getMission(): ?Mission
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?Mission $mission): self
+    {
+        $this->mission = $mission;
 
         return $this;
     }
