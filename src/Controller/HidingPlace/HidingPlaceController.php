@@ -40,4 +40,24 @@ class HidingPlaceController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/modifier-une-planque/{idHidingPlace}", name="edit_hidingPlace")
+     */
+    public function editHidingPlace(Request $request, $idHidingPlace): Response
+    {
+        $hidingPlace = $this->hidingPlaceRepository->findOneById($idHidingPlace);
+        if (!$hidingPlace) {
+            $this->addFlash('warning', "La planque demander n'existe pas");
+        }
+        $form = $this->createForm(HidingPlaceType::class, $hidingPlace)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', "La planque à bien été modifier");
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('admin/hidingPlace/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }

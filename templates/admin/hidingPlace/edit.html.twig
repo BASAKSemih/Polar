@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une planque{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Modifier une planque</h1>
+        {{ form_start(form) }}
+        <label for="">Adresse de la planque</label>
+        {{ form_row(form.address) }}
+        <label for="">Code Postale</label>
+        {{ form_row(form.postalCode) }}
+        <label for="">Ville</label>
+        {{ form_row(form.city) }}
+        <label for="">Type de planque</label>
+        {{ form_row(form.type) }}
+        {{ form_widget(form.submit, { 'label': "Modifier la planque" }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
