@@ -57,5 +57,4 @@ class MissionTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-
 }
