@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Agent;
+namespace App\Controller\Admin\Agent;
 
 use App\Entity\Agent;
 use App\Form\AgentType;
