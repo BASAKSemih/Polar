@@ -39,9 +39,15 @@ class Target
      */
     private $nationality;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="target")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->nationality = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -110,6 +116,33 @@ class Target
     public function removeNationality(Nationality $nationality): self
     {
         $this->nationality->removeElement($nationality);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->addTarget($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->missions->removeElement($mission)) {
+            $mission->removeTarget($this);
+        }
 
         return $this;
     }

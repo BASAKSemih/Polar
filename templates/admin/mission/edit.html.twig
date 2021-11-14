@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une Mission{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Modifier une Mission</h1>
+        {{ form_start(form) }}
+
+        <label for="">Titre de la mission</label>
+        {{ form_row(form.title) }}
+        <label for="">Description</label>
+        {{ form_row(form.description) }}
+        <label for="">Pays</label>
+        {{ form_row(form.country) }}
+        <label for="">Type de mission</label>
+        {{ form_row(form.type) }}
+        <label for="">Statut</label>
+        {{ form_row(form.status) }}
+        <label for="">Spécialité nécessaire</label>
+        {{ form_row(form.speciality) }}
+        <label for="">Date de début</label>
+        {{ form_row(form.dateStart) }}
+        <label for="">Date de fin</label>
+        {{ form_row(form.dateEnd) }}
+        <label for="">Veuillez séléctionner les agents ou un agent nécessaire</label>
+        {{ form_row(form.agent) }}
+        <label for="">Les contacts ou le contact de la mission</label>
+        {{ form_row(form.contact) }}
+        <label for="">La ou les cibles</label>
+        {{ form_row(form.target) }}
+        <label for="">Les ou la planques</label>
+        {{ form_row(form.hidingPlace) }}
+        {{ form_widget(form.submit, { 'label': "Modifier la mission" }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
