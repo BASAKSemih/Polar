@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\HidingPlace;
+namespace App\Controller\Admin\HidingPlace;
 
 use App\Entity\HidingPlace;
 use App\Form\HidingPlaceType;
