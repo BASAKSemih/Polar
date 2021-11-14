@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Nationality;
+namespace App\Controller\Admin\Nationality;
 
 use App\Entity\Nationality;
 use App\Form\NationalityType;
