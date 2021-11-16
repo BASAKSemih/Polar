@@ -31,11 +31,6 @@ class Mission
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $country;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
      */
     private $agent;
@@ -85,6 +80,12 @@ class Mission
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="missions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $country;
+
     public function __construct()
     {
         $this->agent = new ArrayCollection();
@@ -119,18 +120,6 @@ class Mission
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
@@ -299,6 +288,18 @@ class Mission
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

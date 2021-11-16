@@ -29,9 +29,15 @@ class Country
      */
     private $hidingPlaces;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="country")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->hidingPlaces = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,36 @@ class Country
             // set the owning side to null (unless already changed)
             if ($hidingPlace->getCountry() === $this) {
                 $hidingPlace->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getCountry() === $this) {
+                $mission->setCountry(null);
             }
         }
 

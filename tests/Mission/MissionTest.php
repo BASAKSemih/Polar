@@ -39,7 +39,7 @@ class MissionTest extends WebTestCase
         $form = $crawler->filter("form[name=mission]")->form([
             "mission[title]" => "Française",
             "mission[description]" => "Française",
-            "mission[country]" => "Française",
+            "mission[country]" => 1,
             "mission[type]" => "Surveillance",
             "mission[status]" => "Terminé",
             "mission[speciality]" => "Française",
@@ -67,9 +67,9 @@ class MissionTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_mission'));
 
         $form = $crawler->filter("form[name=mission]")->form([
-            "mission[title]" => "Edit",
+            "mission[title]" => "Editthis",
             "mission[description]" => "Edit",
-            "mission[country]" => "Edit",
+            "mission[country]" => 1,
             "mission[type]" => "Surveillance",
             "mission[status]" => "Terminé",
             "mission[speciality]" => "Edit",
@@ -95,7 +95,7 @@ class MissionTest extends WebTestCase
         $router = $client->getContainer()->get("router");
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
         $missionRepository = $entityManager->getRepository(Mission::class);
-        $mission = $missionRepository->findOneByCountry("Edit");
+        $mission = $missionRepository->findOneByTitle("Editthis");
         /** @var Mission $idMission */
         $idMission = $mission->getId();
         $crawler = $client->request(
@@ -106,7 +106,7 @@ class MissionTest extends WebTestCase
         $form = $crawler->filter("form[name=mission]")->form([
             "mission[title]" => "Edited",
             "mission[description]" => "Edited",
-            "mission[country]" => "Edited",
+            "mission[country]" => 1,
             "mission[type]" => "Surveillance",
             "mission[status]" => "Terminé",
             "mission[speciality]" => "Edit",
