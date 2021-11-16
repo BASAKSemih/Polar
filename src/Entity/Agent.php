@@ -68,6 +68,22 @@ class Agent
         $this->missions = new ArrayCollection();
     }
 
+    public function setSpeciality(ArrayCollection $speciality): void
+    {
+        $this->speciality = $speciality;
+    }
+
+    public function setNationality(ArrayCollection $nationality): void
+    {
+        $this->nationality = $nationality;
+    }
+
+    public function setMissions(ArrayCollection $missions): void
+    {
+        $this->missions = $missions;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

@@ -53,6 +53,7 @@ class MissionController extends AbstractController
         $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $agents = $mission->getAgent();
             $this->entityManager->persist($mission);
             $this->entityManager->flush();
             $this->addFlash('success', "La mission à bien été crée");
