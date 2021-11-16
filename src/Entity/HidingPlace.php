@@ -44,6 +44,12 @@ class HidingPlace
      */
     private $missions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="hidingPlaces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $country;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
@@ -125,6 +131,18 @@ class HidingPlace
         if ($this->missions->removeElement($mission)) {
             $mission->removeHidingPlace($this);
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

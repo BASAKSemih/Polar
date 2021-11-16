@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\HidingPlace;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{SubmitType, TextareaType, TextType};
+use App\Entity\Country;
+use App\Entity\HidingPlace;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,11 +35,23 @@ class HidingPlaceType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]])
+            ->add('country', EntityType::class, [
+                'label' => false,
+                'class' => Country::class,
+                'multiple' => false,
+                'choice_label' => function (Country $country) {
+                    return $country->getName();
+                },
+                'attr' => [
+                    'class' => 'form-control'
+                ]])
             ->add('submit', SubmitType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary mt-2',
                 ]]);
+
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

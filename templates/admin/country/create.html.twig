@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un pays{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Crée le pays</h1>
+        {{ form_start(form) }}
+        <label for="">Nom du pays</label>
+        {{ form_row(form.name) }}
+        {{ form_widget(form.submit, { 'label': 'Crée le pays' }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
