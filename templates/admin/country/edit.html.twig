@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un pays{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Modifier le pays</h1>
+        {{ form_start(form) }}
+        <label for="">Nom du pays</label>
+        {{ form_row(form.name) }}
+        {{ form_widget(form.submit, { 'label': 'Modifier le pays' }) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
