@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Country;
 use App\Entity\Nationality;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{SubmitType, TextType};
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +17,16 @@ class NationalityType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]])
+            ->add('country', EntityType::class, [
+                'label' => false,
+                'class' => Country::class,
+                'multiple' => false,
+                'choice_label' => function (Country $country) {
+                    return $country->getName();
+                },
                 'attr' => [
                     'class' => 'form-control'
                 ]])

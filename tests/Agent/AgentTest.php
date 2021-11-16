@@ -3,6 +3,7 @@
 namespace App\Tests\Agent;
 
 use App\Entity\Agent;
+use App\Entity\Country;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -34,15 +35,37 @@ class AgentTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    public function testCreateCountry(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('create_country'));
+
+        $form = $crawler->filter("form[name=country]")->form([
+            "country[name]" => "Etat-Unis Amerique",
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
     public function testCreateNationality(): void
     {
         $client = static::createClient();
         /** @var RouterInterface $router */
         $router = $client->getContainer()->get("router");
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $countryRepository = $entityManager->getRepository(Country::class);
+        /** @var Country $country */
+        $country = $countryRepository->findOneByName("Etat-Unis Amerique");
+        $countryId = $country->getId();
+
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_nationality'));
 
         $form = $crawler->filter("form[name=nationality]")->form([
             "nationality[name]" => "Américain",
+            "nationality[country]" => $countryId
         ]);
         $client->submit($form);
         $client->followRedirect();

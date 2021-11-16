@@ -88,6 +88,18 @@ class MissionController extends AbstractController
         }
         $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check if HidePlace Country is same as Mission Country
+            $countryMission = $mission->getCountry()->getName();
+            $hidePlaces = $mission->getHidingPlace();
+            foreach ($hidePlaces as $hidePlace) {
+                if ($hidePlace->getCountry()->getName() !== $countryMission) {
+                    $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                    $this->addFlash('danger', "la planque est obligatoirement dans le même pays que la mission.");
+                    return $this->render('admin/mission/create.html.twig', [
+                        'form' => $form->createView()
+                    ]);
+                }
+            }
             $this->entityManager->flush();
             $this->addFlash('success', "La mission à bien été modifier");
             return $this->redirectToRoute('homePage');
