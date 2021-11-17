@@ -112,7 +112,7 @@ class MissionType extends AbstractType
                 'class' => HidingPlace::class,
                 'multiple' => true,
                 'choice_label' => function (HidingPlace $hidingPlace) {
-                    return $hidingPlace->getAddress();
+                    return $hidingPlace->getAddress() . $hidingPlace->getCity();
                 },
                 'attr' => [
                     'class' => 'form-control'
