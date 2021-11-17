@@ -140,14 +140,12 @@ class MissionAgentTest extends WebTestCase
     public function testCreateTarget(): void
     {
         $client = static::createClient();
-        /** @var RouterInterface $router */
         $router = $client->getContainer()->get("router");
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
         $nationalityRepository = $entityManager->getRepository(Nationality::class);
         $nationality = $nationalityRepository->findOneByName("Mexicain");
         $nationalityId = $nationality->getId();
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_target'));
-
         $form = $crawler->filter("form[name=target]")->form([
             "target[firstName]" => "Semihh",
             "target[lastName]" => "Bond",
@@ -167,35 +165,24 @@ class MissionAgentTest extends WebTestCase
     public function testCreateMissionWithSameNationalityAgentTarget(): void
     {
         $client = static::createClient();
-        /** @var RouterInterface $router */
         $router = $client->getContainer()->get("router");
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_mission'));
-
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
-
         $countryRepository = $entityManager->getRepository(Country::class);
         $country = $countryRepository->findOneByName("Mexique");
         $countryId = $country->getId();
-
         $agentRepository = $entityManager->getRepository(Agent::class);
-        /** @var Agent $agent */
         $agent = $agentRepository->findOneByfirstName("Doeeeee");
         $agentId = $agent->getId();
-
         $contactRepository = $entityManager->getRepository(Contact::class);
-        /** @var Contact $contact */
         $contact = $contactRepository->findOneByfirstName("qsdqsdqsdqsdsqdqsdqsdqsdqsd");
         $contactId = $contact->getId();
-
         $targetRepository = $entityManager->getRepository(Target::class);
         $target = $targetRepository->findOneByfirstName("Semihh");
         $targetId = $target->getId();
-
         $hidingPlaceRepository = $entityManager->getRepository(HidingPlace::class);
         $hidingPlace = $hidingPlaceRepository->findOneByCity("Mulhouseeee");
         $hidingPlaceId = $hidingPlace->getId();
-
-
         $form = $crawler->filter("form[name=mission]")->form([
             "mission[title]" => "Française",
             "mission[description]" => "Française",
@@ -216,6 +203,5 @@ class MissionAgentTest extends WebTestCase
         ]);
         $client->submit($form);
         self::assertRouteSame('create_mission');
-        // Conditions tester Sur une mission, la ou les cibles ne peuvent pas avoir la même nationalité que le ou les agents.
     }
 }
