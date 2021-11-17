@@ -39,6 +39,12 @@ class Nationality
      */
     private $contacts;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Country::class, inversedBy="nationality", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $country;
+
     public function __construct()
     {
         $this->agents = new ArrayCollection();
@@ -140,6 +146,18 @@ class Nationality
         if ($this->contacts->removeElement($contact)) {
             $contact->removeNationality($this);
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

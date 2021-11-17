@@ -34,6 +34,11 @@ class Country
      */
     private $missions;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Nationality::class, mappedBy="country", cascade={"persist", "remove"})
+     */
+    private $nationality;
+
     public function __construct()
     {
         $this->hidingPlaces = new ArrayCollection();
@@ -113,6 +118,23 @@ class Country
                 $mission->setCountry(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNationality(): ?Nationality
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(Nationality $nationality): self
+    {
+        // set the owning side of the relation if necessary
+        if ($nationality->getCountry() !== $this) {
+            $nationality->setCountry($this);
+        }
+
+        $this->nationality = $nationality;
 
         return $this;
     }

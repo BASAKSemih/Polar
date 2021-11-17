@@ -9,6 +9,8 @@
         {{ form_start(form) }}
         <label for="">Nom de la nationnalité</label>
         {{ form_row(form.name) }}
+        <label for="">Pays</label>
+        {{ form_row(form.country) }}
         {{ form_widget(form.submit, { 'label': 'Modifier la nationnalité' }) }}
         {{ form_end(form) }}
     </div>

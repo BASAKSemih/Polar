@@ -14,21 +14,43 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $country = new Country();
+        $country
+            ->setName("Allemagne");
+        $manager->persist($country);
+        $manager->flush();
+
+
         $nationality = new Nationality();
         $nationality
+            ->setCountry($country)
             ->setName("Allemand");
         $manager->persist($nationality);
         $manager->flush();
 
-        $nationality = new Nationality();
-        $nationality
-            ->setName("Grec");
-        $manager->persist($nationality);
+        $country = new Country();
+        $country
+            ->setName("Grèce");
+        $manager->persist($country);
         $manager->flush();
 
         $nationality = new Nationality();
         $nationality
+            ->setCountry($country)
+            ->setName("Grec");
+        $manager->persist($nationality);
+        $manager->flush();
+
+        $country = new Country();
+        $country
             ->setName("Brésil");
+        $manager->persist($country);
+        $manager->flush();
+
+        $nationality = new Nationality();
+        $nationality
+            ->setCountry($country)
+            ->setName("Brésilien");
         $manager->persist($nationality);
         $manager->flush();
 
