@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Admin;
 use App\Entity\Agent;
 use App\Entity\Country;
 use App\Entity\HidingPlace;
@@ -9,9 +10,18 @@ use App\Entity\Nationality;
 use App\Entity\Speciality;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    protected UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $country = new Country();
@@ -105,6 +115,17 @@ class AppFixtures extends Fixture
             ->setPostalCode("2500")
             ->setAddress("Villa Champs");
         $manager->persist($hidePlace);
+        $manager->flush();
+
+        $admin = new Admin();
+        $password_hash = $this->passwordHasher->hashPassword($admin, 'password');
+        $admin
+            ->setFirstName("John")
+            ->setLastName("Doe")
+            ->setPassword($password_hash)
+            ->setEmail("email@email.com");
+
+        $manager->persist($admin);
         $manager->flush();
     }
 }
