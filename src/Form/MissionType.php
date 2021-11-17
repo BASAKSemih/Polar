@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\{Agent, Contact, Country, HidingPlace, Mission, Target};
+use App\Entity\{Agent, Contact, Country, HidingPlace, Mission, Speciality, Target};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{ChoiceType, DateType, SubmitType, TextareaType, TextType};
@@ -57,8 +57,13 @@ class MissionType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]])
-            ->add('speciality', TextType::class, [
+            ->add('speciality', EntityType::class, [
                 'label' => false,
+                'class' => Speciality::class,
+                'multiple' => false,
+                'choice_label' => function (Speciality $speciality) {
+                    return $speciality->getName();
+                },
                 'attr' => [
                     'class' => 'form-control'
                 ]])

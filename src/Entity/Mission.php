@@ -61,11 +61,6 @@ class Mission
     private $hidingPlace;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $speciality;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $dateStart;
@@ -85,6 +80,12 @@ class Mission
      * @ORM\JoinColumn(nullable=false)
      */
     private $country;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Speciality::class, inversedBy="missions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $speciality;
 
     public function __construct()
     {
@@ -244,18 +245,6 @@ class Mission
         return $this;
     }
 
-    public function getSpeciality(): ?string
-    {
-        return $this->speciality;
-    }
-
-    public function setSpeciality(string $speciality): self
-    {
-        $this->speciality = $speciality;
-
-        return $this;
-    }
-
     public function getDateStart(): ?\DateTimeInterface
     {
         return $this->dateStart;
@@ -300,6 +289,18 @@ class Mission
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?Speciality
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?Speciality $speciality): self
+    {
+        $this->speciality = $speciality;
 
         return $this;
     }

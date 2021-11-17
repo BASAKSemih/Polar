@@ -64,7 +64,7 @@ class MissionCountryTest extends WebTestCase
             "mission[country]" => $countryId,
             "mission[type]" => "Surveillance",
             "mission[status]" => "Terminé",
-            "mission[speciality]" => "Française",
+            "mission[speciality]" => 1,
             "mission[dateStart][day]" => "11",
             "mission[dateStart][month]" => "11",
             "mission[dateStart][year]" => "2016",

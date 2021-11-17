@@ -7,6 +7,7 @@ use App\Entity\Contact;
 use App\Entity\Country;
 use App\Entity\HidingPlace;
 use App\Entity\Nationality;
+use App\Entity\Speciality;
 use App\Entity\Target;
 use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -110,6 +111,9 @@ class MissionAgentTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    /**
+     * @depends testCreateSpeciality
+     */
     public function testCreateAgent(): void
     {
         $client = static::createClient();
@@ -119,6 +123,10 @@ class MissionAgentTest extends WebTestCase
         $nationalityRepository = $entityManager->getRepository(Nationality::class);
         $nationality = $nationalityRepository->findOneByName("Mexicain");
         $nationalityId = $nationality->getId();
+
+        $specialityRepository = $entityManager->getRepository(Speciality::class);
+        $speciality = $specialityRepository->findOneByName("Vol");
+        $specialityId = $speciality->getId();
 
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_agent'));
 
@@ -130,7 +138,23 @@ class MissionAgentTest extends WebTestCase
             "agent[birthDate][year]" => "2016",
             "agent[biography]" => "L'agent 007",
             "agent[nationality]" => $nationalityId,
-            "agent[speciality]" => 1
+            "agent[speciality]" => $specialityId
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
+    public function testCreateSpeciality(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get("router");
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('create_speciality'));
+
+        $form = $crawler->filter("form[name=speciality]")->form([
+            "speciality[name]" => "Vol",
+            "speciality[description]" => "Vol des objects de valeur"
         ]);
         $client->submit($form);
         $client->followRedirect();
@@ -183,13 +207,16 @@ class MissionAgentTest extends WebTestCase
         $hidingPlaceRepository = $entityManager->getRepository(HidingPlace::class);
         $hidingPlace = $hidingPlaceRepository->findOneByCity("Mulhouseeee");
         $hidingPlaceId = $hidingPlace->getId();
+        $specialityRepository = $entityManager->getRepository(Speciality::class);
+        $speciality = $specialityRepository->findOneByName("Vol");
+        $specialityId = $speciality->getId();
         $form = $crawler->filter("form[name=mission]")->form([
             "mission[title]" => "Française",
             "mission[description]" => "Française",
             "mission[country]" => $countryId,
             "mission[type]" => "Surveillance",
             "mission[status]" => "Terminé",
-            "mission[speciality]" => "Française",
+            "mission[speciality]" => $specialityId,
             "mission[dateStart][day]" => "11",
             "mission[dateStart][month]" => "11",
             "mission[dateStart][year]" => "2016",
