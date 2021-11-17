@@ -35,6 +35,7 @@ class MissionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $countryMission = $mission->getCountry()->getName();
             $hidePlaces = $mission->getHidingPlace();
+            $agentsMission = $mission->getAgent();
             foreach ($hidePlaces as $hidePlace) {
                 if ($hidePlace->getCountry()->getName() !== $countryMission) {
                     $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
@@ -63,7 +64,6 @@ class MissionController extends AbstractController
                 }
             }
             $targetsMission = $mission->getTarget();
-            $agentsMission = $mission->getAgent();
             foreach ($targetsMission as $target) {
                 foreach ($target->getNationality() as $targetNationality) {
                     foreach ($agentsMission as $agent) {
@@ -82,6 +82,22 @@ class MissionController extends AbstractController
                     }
                 }
             }
+            $missionSpeciality = $mission->getSpeciality()->getName();
+            foreach ($agentsMission as $agent) {
+                foreach ($agent->getSpeciality() as $agentSpeciality) {
+                    if ($missionSpeciality !== $agentSpeciality->getName()) {
+                        $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                        $this->addFlash(
+                            'danger',
+                            "il faut assigner au moins 1 agent disposant de la spécialité requise"
+                        );
+                        return $this->render('admin/mission/create.html.twig', [
+                            'form' => $form->createView()
+                        ]);
+                    }
+                }
+            }
+
             $this->entityManager->persist($mission);
             $this->entityManager->flush();
             $this->addFlash('success', "La mission à bien été crée");
