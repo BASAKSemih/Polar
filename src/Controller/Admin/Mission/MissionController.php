@@ -54,7 +54,6 @@ class MissionController extends AbstractController
         $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Check if HidePlace Country is same as Mission Country
             $countryMission = $mission->getCountry()->getName();
             $hidePlaces = $mission->getHidingPlace();
             foreach ($hidePlaces as $hidePlace) {
@@ -64,6 +63,35 @@ class MissionController extends AbstractController
                     return $this->render('admin/mission/create.html.twig', [
                         'form' => $form->createView()
                     ]);
+                }
+            }
+            $contactsMission = $mission->getContact();
+            foreach ($contactsMission as $contact) {
+                foreach ($contact->getNationality() as $contactNationality) {
+                    if ($countryMission !== $contactNationality->getCountry()->getName()) {
+                        $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                        $this->addFlash('danger', "les contacts sont obligatoirement de la nationalité du pays de la mission.");
+                        return $this->render('admin/mission/create.html.twig', [
+                            'form' => $form->createView()
+                        ]);
+                    }
+                }
+            }
+            $targetsMission = $mission->getTarget();
+            $agentsMission = $mission->getAgent();
+            foreach ($targetsMission as $target) {
+                foreach ($target->getNationality() as $targetNationality) {
+                    foreach ($agentsMission as $agent) {
+                        foreach ($agent->getNationality() as $agentNationality) {
+                            if ($targetNationality->getName() === $agentNationality->getName()) {
+                                $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                                $this->addFlash('danger', "La ou les cibles ne peuvent pas avoir la même nationalité que le ou les agents");
+                                return $this->render('admin/mission/create.html.twig', [
+                                    'form' => $form->createView()
+                                ]);
+                            }
+                        }
+                    }
                 }
             }
             $this->entityManager->persist($mission);
@@ -88,7 +116,6 @@ class MissionController extends AbstractController
         }
         $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Check if HidePlace Country is same as Mission Country
             $countryMission = $mission->getCountry()->getName();
             $hidePlaces = $mission->getHidingPlace();
             foreach ($hidePlaces as $hidePlace) {
@@ -98,6 +125,35 @@ class MissionController extends AbstractController
                     return $this->render('admin/mission/create.html.twig', [
                         'form' => $form->createView()
                     ]);
+                }
+            }
+            $contactsMission = $mission->getContact();
+            foreach ($contactsMission as $contact) {
+                foreach ($contact->getNationality() as $contactNationality) {
+                    if ($countryMission !== $contactNationality->getCountry()->getName()) {
+                        $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                        $this->addFlash('danger', "les contacts sont obligatoirement de la nationalité du pays de la mission.");
+                        return $this->render('admin/mission/create.html.twig', [
+                            'form' => $form->createView()
+                        ]);
+                    }
+                }
+            }
+            $targetsMission = $mission->getTarget();
+            $agentsMission = $mission->getAgent();
+            foreach ($targetsMission as $target) {
+                foreach ($target->getNationality() as $targetNationality) {
+                    foreach ($agentsMission as $agent) {
+                        foreach ($agent->getNationality() as $agentNationality) {
+                            if ($targetNationality->getName() === $agentNationality->getName()) {
+                                $form = $this->createForm(MissionType::class, $mission)->handleRequest($request);
+                                $this->addFlash('danger', "La ou les cibles ne peuvent pas avoir la même nationalité que le ou les agents");
+                                return $this->render('admin/mission/create.html.twig', [
+                                    'form' => $form->createView()
+                                ]);
+                            }
+                        }
+                    }
                 }
             }
             $this->entityManager->flush();
