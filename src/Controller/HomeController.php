@@ -28,7 +28,6 @@ class HomeController extends AbstractController
         NationalityRepository $nationalityRepository,
         SpecialityRepository $specialityRepository,
         TargetRepository $targetRepository
-
     ) {
         $this->countryRepository = $countryRepository;
         $this->agentRepository = $agentRepository;
