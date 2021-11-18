@@ -48,7 +48,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("liste-des-cibles", name="list_target")
+     * @Route("/liste-des-cibles", name="list_target")
      */
     public function listTarget(): Response
     {
@@ -59,7 +59,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("liste-des-agents", name="list_agent")
+     * @Route("/liste-des-agents", name="list_agent")
      */
     public function listAgent(): Response
     {
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("liste-des-contacts", name="list_contact")
+     * @Route("/liste-des-contacts", name="list_contact")
      */
     public function listContact(): Response
     {
@@ -81,7 +81,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("liste-des-missions", name="list_missions")
+     * @Route("/liste-des-missions", name="list_missions")
      */
     public function listMission(): Response
     {
@@ -92,13 +92,35 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("liste-des-pays", name="list_country")
+     * @Route("/liste-des-pays", name="list_country")
      */
     public function listCountry(): Response
     {
         $countrys = $this->countryRepository->findAll();
         return $this->render('home/country.html.twig', [
             'countrys' => $countrys
+        ]);
+    }
+
+    /**
+     * @Route("/liste-des-nationnalite", name="list-nationality")
+     */
+    public function listNationality(): Response
+    {
+        $nationalitys = $this->nationalityRepository->findAll();
+        return $this->render('home/nationality.html.twig', [
+            'nationalitys' => $nationalitys
+        ]);
+    }
+
+    /**
+     * @Route("/liste-des-planques", name="list-hidingPlace")
+     */
+    public function listHidingPlace(): Response
+    {
+        $hidingPlace = $this->hidingPlaceRepository->findAll();
+        return $this->render('home/hidingPlace.html.twig', [
+            'hidingPlace' => $hidingPlace
         ]);
     }
 }
