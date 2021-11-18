@@ -3,15 +3,47 @@
 namespace App\Tests\Target;
 
 use App\Entity\Target;
+use App\Repository\AdminRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class TargetTest extends WebTestCase
 {
-    public function testCreateTarget(): void
+    /**
+     * @param string $email
+     * @return KernelBrowser
+     */
+    public static function createAuthenticatedClient(string $email): KernelBrowser
     {
         $client = static::createClient();
+
+        $client->getCookieJar()->clear();
+
+        /** @var SessionInterface $session */
+        $session = $client->getContainer()->get('session');
+
+        $user = self::$container->get(AdminRepository::class)->findOneByEmail($email);
+
+        $firewallContext = 'main';
+
+        $token = new UsernamePasswordToken($user, $user->getPassword(), $firewallContext, $user->getRoles());
+        $session->set('_security_' . $firewallContext, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
+
+        return $client;
+    }
+
+    public function testCreateTarget(): void
+    {
+        $client = self::createAuthenticatedClient("email@email.com");
         /** @var RouterInterface $router */
         $router = $client->getContainer()->get("router");
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_target'));
@@ -31,7 +63,7 @@ class TargetTest extends WebTestCase
 
     public function testCreateTargetForEdit(): void
     {
-        $client = static::createClient();
+        $client = self::createAuthenticatedClient("email@email.com");
         /** @var RouterInterface $router */
         $router = $client->getContainer()->get("router");
         $crawler = $client->request(Request::METHOD_GET, $router->generate('create_target'));
@@ -51,7 +83,7 @@ class TargetTest extends WebTestCase
 
     public function testEditTarget(): void
     {
-        $client = static::createClient();
+        $client = self::createAuthenticatedClient("email@email.com");
         $router = $client->getContainer()->get("router");
         $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
         $targetRepository = $entityManager->getRepository(Target::class);
