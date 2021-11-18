@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1>Liste des Missions</h1>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Dated de fin</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for mission in missions %}
+                    <tr>
+                        <th scope="row">{{ mission.id }}</th>
+                        <td>{{ mission.description }}</td>
+                        <td>{{ mission.type }}</td>
+                        <td>{{ mission.status }}</td>
+                        <td>{{ mission.dateStart|date('d/m/Y') }}</td>
+                        <td>{{ mission.dateEnd|date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

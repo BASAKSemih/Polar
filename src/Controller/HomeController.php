@@ -81,6 +81,18 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/liste-des-specialite", name="list_speciality")
+     */
+    public function listSpeciality(): Response
+    {
+        $specialitys = $this->specialityRepository->findAll();
+        return $this->render('home/speciality.html.twig', [
+            'specialitys' => $specialitys
+        ]);
+    }
+
+
+    /**
      * @Route("/liste-des-missions", name="list_missions")
      */
     public function listMission(): Response

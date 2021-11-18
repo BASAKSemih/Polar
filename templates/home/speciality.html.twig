@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1>Liste des Spécialité</h1>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for speciality in specialitys %}
+                    <tr>
+                        <th scope="row">{{ speciality.id }}</th>
+                        <td>{{ speciality.name }}</td>
+                        <td>{{ speciality.description }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
