@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1>Liste des Pays</h1>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom du pays</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for country in countrys %}
+                    <tr>
+                        <th scope="row">{{ country.id }}</th>
+                        <td>{{ country.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

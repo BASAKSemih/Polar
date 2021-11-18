@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1>Liste des Planques</h1>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Code Postale</th>
+                    <th scope="col">Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for hiding in hidingPlace %}
+                    <tr>
+                        <th scope="row">{{ hiding.id }}</th>
+                        <td>{{ hiding.country.name }}</td>
+                        <td>{{ hiding.city }}</td>
+                        <td>{{ hiding.address }}</td>
+                        <td>{{ hiding.postalCode }}</td>
+                        <td>{{ hiding.type }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

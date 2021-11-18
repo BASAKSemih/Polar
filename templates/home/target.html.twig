@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-3">
+        <h1>Liste des Cibles</h1>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom de Famille</th>
+                    <th scope="col">Date de Naissance</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for target in targets %}
+                        <tr>
+                            <th scope="row">{{ target.id }}</th>
+                            <td>{{ target.firstName }}</td>
+                            <td>{{ target.lastName }}</td>
+                            <td>{{ target.birthDate|date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -10,27 +10,43 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('homePage') }}">Page Accueil</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Liste</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('list_agent') }}">Tous les agents</a>
+                        <a class="dropdown-item" href="{{ path('list_contact') }}">Tous les contacts</a>
+                        <a class="dropdown-item" href="{{ path('list_target') }}">Toutes les cibles</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('list_contact') }}">Tous les pays</a>
+                        <a class="dropdown-item" href="{{ path('list_target') }}">Toutes les nationnalité</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('list_speciality') }}">Tous les spécialité</a>
+                        <a class="dropdown-item" href="{{ path('list-hidingPlace') }}">Toutes les planques</a>
+                        <a class="dropdown-item" href="{{ path('list_missions') }}">Toutes les missions</a>
+                    </div>
+                </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_agent') }}">Agent</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pays & Nationnalité/Planque</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('create_country') }}">Crée un pays</a>
+                            <a class="dropdown-item" href="{{ path('create_nationality') }}">Crée une nationnalité</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('create_hidingPlace') }}">Crée une planque</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Agent/Contact/Cible</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('create_speciality') }}">Crée une spécialité</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('create_agent') }}">Crée un agent</a>
+                            <a class="dropdown-item" href="{{ path('create_contact') }}">Crée un contact</a>
+                            <a class="dropdown-item" href="{{ path('create_contact') }}">Crée une cible</a>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_contact') }}">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_speciality') }}">Spécialité</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_target') }}">Target</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_nationality') }}">Nationnalité</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_hidingPlace') }}">Planque</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('create_mission') }}">Mission</a>
+                        <a class="nav-link" href="{{ path('create_mission') }}">Crée une mission</a>
                     </li>
                 {% endif %}
 
